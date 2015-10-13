@@ -43,16 +43,15 @@ var ppt = {
 	init: function (_t) {
 
 		_t.pages.slice = Array.prototype.slice;
-		
+
 		_t.l = _t.pages.length;
-		var i, p = _t.getNav();
+		var i;
 		for(i = _t.l; i--;){
 			_t.pages[i].css({background: _t.color()});
 			_t.pages[i].css({zIndex: _t.l - i});
 		}
-		_t.go(0);
 		setTimeout(function () {
-			_t.go(p);
+			_t.go(_t.getNav());
 		},0);
 		document.onkeydown = _t.keyEvent;
 	},
