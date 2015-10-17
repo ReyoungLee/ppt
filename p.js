@@ -1,6 +1,6 @@
 
 var ppt = {
-	pages: document.querySelectorAll('#con>div'),
+	pages: document.querySelectorAll('#page>div'),
 	l: 0,
 	nav: document.querySelector('#nav>div'),
 	currentPage: 0,
@@ -18,9 +18,8 @@ var ppt = {
 			this.pages.slice(index, this.currentPage).css(up);
 		}
 
-		this.nav.style.width = (index+1)/this.l * 100 + '%';
-		this.currentPage = index;
-		location.hash = index;
+		this.nav.css({ width: (index + 1)/this.l * 100 + '%' });
+		this.currentPage = location.hash = index;
 	},
 	goUp: function () {
 		this.go(this.currentPage - 1);
@@ -29,7 +28,7 @@ var ppt = {
 		this.go(this.currentPage + 1);
 	},
 	color:  function (flag) {
-		var ret,c = ppt.color;
+		var ret,c = this.color;
 		flag && (ret =  60 + Math.floor(Math.random() * 100));
 		flag || (ret = 'rgb('+c(1)+','+c(1)+','+c(1)+')');
 		return ret;
@@ -41,14 +40,16 @@ var ppt = {
 		([32,34,39,40].indexOf(e) > -1) && ppt.goDn();
 	},
 	init: function (_t) {
-
+		_t.initFuns();
 		_t.pages.slice = Array.prototype.slice;
 
 		_t.l = _t.pages.length;
-		var i;
+		var i, pn;
+
 		for(i = _t.l; i--;){
 			_t.pages[i].css({background: _t.color()});
 			_t.pages[i].css({zIndex: _t.l - i});
+			i && _t.pages[i].append('span', i);
 		}
 		setTimeout(function () {
 			_t.go(_t.getNav());
@@ -59,24 +60,29 @@ var ppt = {
 		var i = location.hash.slice(-1) * 1;
 		typeof i == 'number' || (i = 0);
 		return i;
-	}
-}
-
-Object.prototype.css = function (obj, delay) {
-
-	var _t = this.length == undefined ? [this]:this,i,k;
-	if(delay > 0){
-		setTimeout(function () {
-			_t.css(obj);
-		}, delay);
-		return;
-	}
-	for(i = _t.length;i--;){
-		for(k in obj){
-			_t[i].style[k] = obj[k];
+	},
+	initFuns: function () {
+		Object.prototype.css = function (obj, delay) {
+			var _t = this.length == undefined ? [this]:this,i,k;
+			if(delay > 0){
+				setTimeout(function () {
+					_t.css(obj);
+				}, delay);
+				return;
+			}
+			for(i = _t.length;i--;){
+				for(k in obj){
+					_t[i].style[k] = obj[k];
+				}
+			}
+			return _t;
+		}
+		Object.prototype.append = function (tag, context) {
+			var dom = document.createElement(tag);
+			dom.innerHTML = context;
+			this.appendChild(dom);
 		}
 	}
-	return _t;
 }
 
 ppt.init(ppt);
