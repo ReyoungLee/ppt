@@ -51,10 +51,13 @@ var ppt = {
 			_t.pages[i].css({zIndex: _t.l - i});
 			i && _t.pages[i].append('span', i);
 		}
-		setTimeout(function () {
+
+		var go = function () {
 			_t.go(_t.getNav());
-		},0);
+		}
+		setTimeout(go,0);
 		document.onkeydown = _t.keyEvent;
+		window.onhashchange = go;
 	},
 	getNav: function () {
 		var i = location.hash.slice(-1) * 1;

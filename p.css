@@ -8,6 +8,6 @@
 .home ul{
 	list-style: none; font-size: 3vh; line-height: 6vh; padding-left: 0;}
 #nav{
-	height: 1vh; width: 100%; position: absolute; z-index: 9999; top: 0; left: 0; background: #eee;}
+	height: 1vh; width: 100%; position: absolute; z-index: 9999; top: 0; left: 0; background: #eee; box-shadow: 0 0 10px #666;}
 #nav>div{
 	height: 100%; background: #1ba9ba; transition: .3s ease-out;}
