@@ -1,5 +1,5 @@
 #page>div{
-	width: 100%; height: 100%; position: fixed; top: 0; left: 0; transition: transform .3s ease-out; transform-origin: 21% 21%; color: #fff; overflow: hidden; padding: 3vh 6vh; box-sizing: border-box; 
+	width: 100%; height: 100%; position: fixed; top: 0; left: 0; transition: .3s ease-out; transform-origin: 21% 21%; color: #fff; overflow: hidden; padding: 3vh 6vh; box-sizing: border-box;
 }
 #page>div>span:last-child{
 	position: absolute;	top: 2vh; right: 2vh; padding-right: 1vh; font-style: italic; font-size: 2vh;
@@ -14,21 +14,38 @@ h1{
 	font-size: 5vh; font-weight: 400; margin-top: 0; border-bottom: 1px #fff solid;
 }
 .home ul{
-	list-style: none; font-size: 3vh; line-height: 6vh; padding-left: 0;}
+	list-style: none; font-size: 3vh; line-height: 6vh; padding-left: 0;
+}
 #nav{
 	height: 1vh; width: 100%; position: absolute; z-index: 9999; top: 0; left: 0; background: #eee;}
 #nav>div{
 	height: 100%; background: #1ba9ba; transition: .3s ease-out;
 }
-#chart{
-	 width: 60vh; height: 60vh;	box-shadow: 0 0 3vh #333; position: relative; border-radius: 50%;
+#tline{
+	position: relative; top: 40%;
 }
-#chart div{
+
+#tline hr{
+	border-top: none;
+}
+#tline .spot{
+	height: 2vh; width: 2vh; border-radius: 50%; background: #fff; position: absolute; top: -1vh; z-index: -1;
+}
+#tline .txt{
+	border-radius: 5px; border: 1px #fff solid; float: left; padding: 1vh; max-width: 200px; margin-left: -100px; margin-top: -10vh; position: absolute;
+}
+#tline .txt:nth-child(even){
+	/*bottom: 12vh;*/
+}
+#pie{
+	 width: 60vh; height: 60vh;	box-shadow: 0 0 3vh #333; position: absolute; border-radius: 50%; top: 50%; margin-top: -28vh;
+}
+#pie div{
 	overflow: hidden; width: 100%; height: 100%; border-radius: 50%; position: absolute;
 }
-#chart>div{
+#pie>div{
 	clip: rect(0 30vh 60vh 0);
 }
-#chart>div>div{
+#pie>div>div{
 	clip: rect(0 60vh 60vh 30vh);
 }

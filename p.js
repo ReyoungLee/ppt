@@ -4,6 +4,7 @@
 		pages: d.querySelectorAll('#page>div'),
 		l: 0,
 		nav: d.querySelector('#nav>div'),
+		tsn: '.7s cubic-bezier(0, 0, 0.7, 1.7)',
 		currentPage: 0,
 		events: [],
 		go: function (index) {
@@ -12,11 +13,11 @@
 				return;
 			}
 
-			var dn = {transform: 'perspective(999px) rotateX(-90deg) rotateY(62deg)'},
+			var dn = {transform: 'perspective(999px) rotateX(-90deg) rotateY(62deg)', opacity: 0},
 				up = {transform: 'perspective(999px) rotate(0)', opacity: 1};
 
 			if( index > _t.currentPage){
-				_t.pages.slice(_t.currentPage, index).css(dn).css({opacity: 0},300);
+				_t.pages.slice(_t.currentPage, index).css(dn);//.css({opacity: 0},300);
 			}else{
 				_t.pages.slice(index, _t.currentPage).css(up);
 			}
@@ -33,7 +34,7 @@
 		},
 		color:  function (flag) {
 			var ret,c = this.color;
-			flag && (ret =  60 + Math.floor(Math.random() * 100));
+			flag && (ret =  30 + Math.floor(Math.random() * 80));
 			flag || (ret = 'rgb('+c(1)+','+c(1)+','+c(1)+')');
 			return ret;
 		},
@@ -52,7 +53,8 @@
 
 			_t.initFuns();
 			_t.initPage(_t);
-			_t.initChart(_t);		
+			_t.initLine(_t);
+			_t.initPie(_t);
 
 			var go = function () {
 				_t.go(_t.getNav());
@@ -61,9 +63,7 @@
 			document.onkeydown = _t.keyEvent;
 			window.onhashchange = go;
 		},
-
 		initPage: function (_t) {
-			_t.pages.slice = Array.prototype.slice;
 
 			_t.l = _t.pages.length;
 			var i;
@@ -74,9 +74,30 @@
 				i && _t.pages[i].append('span', i);
 			}
 		},
-		initChart: function (_t) {
-			var sector = d.querySelectorAll('#chart>div'),
-				secInner = d.querySelectorAll('#chart>div>div');
+		initLine: function (_t) {
+			var spot = d.querySelectorAll('#tline .spot'),
+				txt = d.querySelectorAll('#tline .txt'),
+				txte = d.querySelectorAll('#tline .txt:nth-child(even)'),
+				txto = d.querySelectorAll('#tline .txt:nth-child(odd)');
+			var l = spot.length,i;
+			var dv = ['10', '30', '45', '70'];
+
+			_t.events[1] = function () {
+				[spot, txt].css({left: 0, transition: ''});
+				txte.css({bottom: 0});
+				txto.css({top: 0});
+				setTimeout(function () {
+					[spot, txt].css({transition: _t.tsn});
+					for(i = l;i--;){
+						[spot[i], txt[i]].css({left: dv[i] + '%'});
+						txt[i].css( i%2 ? {top: '16vh'}:{bottom: '6vh'},200);
+					}
+				},9);
+			}
+		},
+		initPie: function (_t) {
+			var sector = d.querySelectorAll('#pie>div'),
+				secInner = d.querySelectorAll('#pie>div>div');
 			var colors = ['#007ac6', '#328ed5', '#63b9fb', '#88cafc', '#bbdffa'];
 			var deg = [1,2,3,4],sum = 0,i;
 			var l = deg.length;
@@ -88,10 +109,10 @@
 			for(i = l;i--;){
 				deg[i] = Math.ceil(deg[i]/sum * 360);
 			}
-			var rotateChart = function () {
+			_t.events[2] = function () {
 				var dv = 0;
 				var initStyle = {transition: '',transform: ''},
-					endStyle = {transition: 'transform .6s ease-out'};
+					endStyle = {transition: _t.tsn};
 				sector.css(initStyle);
 				secInner.css(initStyle);
 				setTimeout(function () {
@@ -102,11 +123,13 @@
 						sector[i].css({transform: 'rotate('+ dv +'deg)'});
 						dv += deg[i];
 					}
-				},0);
+				},9);
 			}
-			_t.events[2] = rotateChart;
 		},
 		initFuns: function () {
+			
+			NodeList.prototype.slice = Array.prototype.slice;
+
 			Object.prototype.css = function (obj, delay) {
 				var _t = this.length == undefined ? [this]:this,i,k;
 				if(delay > 0){
@@ -116,8 +139,12 @@
 					return;
 				}
 				for(i = _t.length;i--;){
-					for(k in obj){
-						_t[i].style[k] = obj[k];
+					if(_t[i].length != undefined){
+						_t[i].css(obj);
+					}else{
+						for(k in obj){
+							_t[i].style[k] = obj[k];
+						}
 					}
 				}
 				return _t;
