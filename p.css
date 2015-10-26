@@ -1,51 +1,169 @@
-#page>div{
-	width: 100%; height: 100%; position: fixed; top: 0; left: 0; transition: .3s ease-out; transform-origin: 21% 21%; color: #fff; overflow: hidden; padding: 3vh 6vh; box-sizing: border-box;
-}
-#page>div>span:last-child{
-	position: absolute;	top: 2vh; right: 2vh; padding-right: 1vh; font-style: italic; font-size: 2vh;
-}
-.home .title{
-	overflow: hidden;
-}
-.title h1{
-	margin-top: 40vh;  font-size: 8vh; float: left;
-}
-h1{
-	font-size: 5vh; font-weight: 400; margin-top: 0; border-bottom: 1px #fff solid;
-}
-.home ul{
-	list-style: none; font-size: 3vh; line-height: 6vh; padding-left: 0;
-}
-#nav{
-	height: 1vh; width: 100%; position: absolute; z-index: 9999; top: 0; left: 0; background: #eee;}
-#nav>div{
-	height: 100%; background: #1ba9ba; transition: .3s ease-out;
-}
-#tline{
-	position: relative; top: 40%;
-}
+#page > div {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: .3s ease-out;
+  transform-origin: 21% 21%;
+  color: #fff;
+  overflow: hidden;
+  padding: 3vh 6vh;
+  box-sizing: border-box;
+  font-size: 16px; }
+  #page > div > span:last-child {
+    position: absolute;
+    top: 2vh;
+    right: 2vh;
+    padding-right: 1vh;
+    font-style: italic;
+    font-size: 2vh; }
 
-#tline hr{
-	border-top: none;
-}
-#tline .spot{
-	height: 2vh; width: 2vh; border-radius: 50%; background: #fff; position: absolute; top: -1vh; z-index: -1;
-}
-#tline .txt{
-	border-radius: 5px; border: 1px #fff solid; float: left; padding: 1vh; max-width: 200px; margin-left: -100px; margin-top: -10vh; position: absolute;
-}
-#tline .txt:nth-child(even){
-	/*bottom: 12vh;*/
-}
-#pie{
-	 width: 60vh; height: 60vh;	box-shadow: 0 0 3vh #333; position: absolute; border-radius: 50%; top: 50%; margin-top: -28vh;
-}
-#pie div{
-	overflow: hidden; width: 100%; height: 100%; border-radius: 50%; position: absolute;
-}
-#pie>div{
-	clip: rect(0 30vh 60vh 0);
-}
-#pie>div>div{
-	clip: rect(0 60vh 60vh 30vh);
-}
+.home .title {
+  overflow: hidden; }
+.home h1 {
+  margin-top: 40vh;
+  font-size: 8vh;
+  float: left; }
+.home ul {
+  list-style: none;
+  font-size: 3vh;
+  line-height: 6vh;
+  padding-left: 0; }
+
+h1 {
+  font-size: 5vh;
+  font-weight: 400;
+  margin-top: 0;
+  border-bottom: 1px #fff solid; }
+
+#nav {
+  height: .8vh;
+  width: 100%;
+  position: absolute;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  background: #eee; }
+  #nav > div {
+    height: 100%;
+    background: #1ba9ba;
+    transition: .3s ease-out; }
+
+#tline {
+  position: relative;
+  top: 40%;
+  background: inherit; }
+  #tline hr {
+    border: none;
+    border-top: 2px #fff solid;
+    margin-left: 16vw;
+    margin-right: 16vw; }
+  #tline .mask {
+    height: 2px;
+    width: 16vw;
+    position: absolute;
+    top: 0; }
+    #tline .mask.l {
+      background-image: -webkit-linear-gradient(left, transparent, #fff); }
+    #tline .mask.r {
+      background-image: -webkit-linear-gradient(right, transparent, #fff);
+      right: 0; }
+  #tline .spot {
+    height: 2vh;
+    width: 2vh;
+    border-radius: 50%;
+    background: #fff;
+    position: absolute;
+    top: -1vh;
+    line-height: 10vh;
+    text-indent: -13px; }
+  #tline .txt {
+    max-width: 15vw;
+    max-height: 30vh;
+    margin-left: -7.5vw;
+    margin-top: -10vh;
+    padding: 1vh;
+    position: absolute;
+    border-radius: 7px;
+    border: 1px #fff solid;
+    float: left;
+    background: inherit; }
+    #tline .txt::after {
+      content: '';
+      width: 18px;
+      height: 18px;
+      margin-left: -11px;
+      border: 1px #fff solid;
+      position: absolute;
+      z-index: -1;
+      left: 50%;
+      transform: rotate(45deg); }
+    #tline .txt::before {
+      content: '';
+      width: 24px;
+      margin-left: -13px;
+      height: 1px;
+      background: inherit;
+      position: absolute;
+      left: 50%; }
+    #tline .txt:nth-child(even)::after {
+      top: 100%;
+      margin-top: -10px; }
+    #tline .txt:nth-child(odd)::after {
+      bottom: 100%;
+      margin-bottom: -10px; }
+    #tline .txt:nth-child(even)::before {
+      bottom: -1px; }
+    #tline .txt:nth-child(odd)::before {
+      top: -1px; }
+
+#pie {
+  width: 50vh;
+  height: 50vh;
+  box-shadow: 0 0 3vh #333;
+  position: absolute;
+  border-radius: 50%;
+  top: 50%;
+  margin-top: -25vh;
+  left: 50%;
+  margin-left: -60vh; }
+  #pie div {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: absolute; }
+  #pie > div {
+    clip: rect(0 25vh 50vh 0); }
+  #pie > div > div {
+    clip: rect(0 50vh 50vh 25vh); }
+
+#works .bar {
+  width: 70%;
+  margin-top: 16vh;
+  margin-left: 6vw;
+  height: 26vh;
+  display: flex;
+  align-items: flex-end; }
+#works .axis {
+  border-top: none;
+  border-bottom: 1px #fff solid;
+  width: 100%;
+  height: 1.5vh;
+  position: relative;
+  overflow: hidden; }
+  #works .axis .arr {
+    width: 0;
+    height: 0;
+    border-color: transparent transparent transparent #fff;
+    border-style: solid;
+    border-width: 1.5vh 3vh;
+    position: absolute;
+    right: -2.8vh;
+    top: 0; }
+#works .start {
+  padding-right: 3vw;
+  font-size: 2vw; }
+
+/*# sourceMappingURL=p.css.map */

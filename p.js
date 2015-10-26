@@ -1,12 +1,15 @@
 
 (function (d) {
 	window.ppt = {
-		pages: d.querySelectorAll('#page>div'),
+		pages:  d.querySelectorAll('#page>div'),
 		l: 0,
 		nav: d.querySelector('#nav>div'),
-		tsn: '.7s cubic-bezier(0, 0, 0.7, 1.7)',
+		tsn: ' cubic-bezier(0, 0, 0.7, 1.7)',
 		currentPage: 0,
 		events: [],
+		q: function (c) {
+			return d.querySelectorAll(c);
+		},
 		go: function (index) {
 			var _t = this;
 			if(index >= _t.l || index < 0){
@@ -17,7 +20,7 @@
 				up = {transform: 'perspective(999px) rotate(0)', opacity: 1};
 
 			if( index > _t.currentPage){
-				_t.pages.slice(_t.currentPage, index).css(dn);//.css({opacity: 0},300);
+				_t.pages.slice(_t.currentPage, index).css(dn);//css({opacity: 0},300);
 			}else{
 				_t.pages.slice(index, _t.currentPage).css(up);
 			}
@@ -34,8 +37,8 @@
 		},
 		color:  function (flag) {
 			var ret,c = this.color;
-			flag && (ret =  30 + Math.floor(Math.random() * 80));
-			flag || (ret = 'rgb('+c(1)+','+c(1)+','+c(1)+')');
+			flag && (ret =  40 + Math.floor(Math.random() * 30 * flag));
+			flag || (ret = 'rgb('+c(1)+','+c(2)+','+c(3)+')');
 			return ret;
 		},
 		keyEvent: function (e) {
@@ -55,6 +58,7 @@
 			_t.initPage(_t);
 			_t.initLine(_t);
 			_t.initPie(_t);
+			_t.initBar(_t);
 
 			var go = function () {
 				_t.go(_t.getNav());
@@ -75,29 +79,31 @@
 			}
 		},
 		initLine: function (_t) {
-			var spot = d.querySelectorAll('#tline .spot'),
-				txt = d.querySelectorAll('#tline .txt'),
-				txte = d.querySelectorAll('#tline .txt:nth-child(even)'),
-				txto = d.querySelectorAll('#tline .txt:nth-child(odd)');
+			var spot = _t.q('#tline .spot'),
+				txt = _t.q('#tline .txt'),
+				txte = _t.q('#tline .txt:nth-child(even)'),
+				txto = _t.q('#tline .txt:nth-child(odd)');
 			var l = spot.length,i;
-			var dv = ['10', '30', '45', '70'];
+			var dv = ['15', '40', '60', '75'];
+			var bg = _t.pages[1].style.background;
 
 			_t.events[1] = function () {
 				[spot, txt].css({left: 0, transition: ''});
 				txte.css({bottom: 0});
 				txto.css({top: 0});
 				setTimeout(function () {
-					[spot, txt].css({transition: _t.tsn});
+					[spot, txt].css({transition: '.7s' + _t.tsn});
+					txte.css({bottom: '4vh'});
+					txto.css({top: '20vh'});
 					for(i = l;i--;){
 						[spot[i], txt[i]].css({left: dv[i] + '%'});
-						txt[i].css( i%2 ? {top: '16vh'}:{bottom: '6vh'},200);
 					}
-				},9);
+				},99);
 			}
 		},
 		initPie: function (_t) {
-			var sector = d.querySelectorAll('#pie>div'),
-				secInner = d.querySelectorAll('#pie>div>div');
+			var sector = _t.q('#pie>div'),
+				secInner = _t.q('#pie>div>div');
 			var colors = ['#007ac6', '#328ed5', '#63b9fb', '#88cafc', '#bbdffa'];
 			var deg = [1,2,3,4],sum = 0,i;
 			var l = deg.length;
@@ -112,7 +118,7 @@
 			_t.events[2] = function () {
 				var dv = 0;
 				var initStyle = {transition: '',transform: ''},
-					endStyle = {transition: _t.tsn};
+					endStyle = {transition: '.7s' + _t.tsn};
 				sector.css(initStyle);
 				secInner.css(initStyle);
 				setTimeout(function () {
@@ -126,8 +132,34 @@
 				},9);
 			}
 		},
+		initBar: function (_t) {
+			var bars = _t.q('.bar .part'),
+				axis = _t.q('#works .axis'),
+				start = _t.q('#bar+.axis+.start');
+			var wk = [2,3,2,2,4],
+				colors = ['#AAF6FF', '#65E2F1', '#3EBFCE', '#0A9AAB', '#027B8C'],
+				tsn = '1s ease-out',
+				i;
+			var l = wk.length;
+
+			for(i = l;i--;){
+				bars[i].css({flex: wk[i], background: colors[i]});
+			}
+			_t.events[3] = function () {
+				bars.css({transition: '', height: 0});
+				axis.css({transition: '', width: 0});
+				start.css({transition: '', opacity: 0});
+				setTimeout(function () {
+					axis.css({transition: tsn, width: '100%'});
+					start.css({transition: tsn, opacity: 1}, 666);
+					for(i = 0;i < l;i++){
+						bars[i].css({transition: '.3s' + _t.tsn, height: '100%'}, 300 * i)
+					}
+				},99);
+			}
+		},
 		initFuns: function () {
-			
+
 			NodeList.prototype.slice = Array.prototype.slice;
 
 			Object.prototype.css = function (obj, delay) {
