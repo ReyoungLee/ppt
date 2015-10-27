@@ -121,7 +121,6 @@ h1 {
 #pie {
   width: 50vh;
   height: 50vh;
-  box-shadow: 0 0 3vh #333;
   position: absolute;
   border-radius: 50%;
   top: 50%;
