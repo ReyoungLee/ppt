@@ -199,4 +199,14 @@ h1{
 		padding-right: 3vw;
 		font-size: 2vw;
 	}
+	.part{
+		position: relative;
+	}
+	.prj{
+		font-size: 1.4vw;
+		position: absolute;
+		top: 110%;
+		left: 5vw;
+		transform-origin: 0 0;
+	}
 }

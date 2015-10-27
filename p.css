@@ -164,5 +164,13 @@ h1 {
 #works .start {
   padding-right: 3vw;
   font-size: 2vw; }
+#works .part {
+  position: relative; }
+#works .prj {
+  font-size: 1.4vw;
+  position: absolute;
+  top: 110%;
+  left: 5vw;
+  transform-origin: 0 0; }
 
 /*# sourceMappingURL=p.css.map */

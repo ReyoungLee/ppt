@@ -134,26 +134,32 @@
 		},
 		initBar: function (_t) {
 			var bars = _t.q('.bar .part'),
+				prj = _t.q('#works .prj'),
 				axis = _t.q('#works .axis'),
-				start = _t.q('#bar+.axis+.start');
+				start = _t.q('#works .start');
 			var wk = [2,3,2,2,4],
 				colors = ['#AAF6FF', '#65E2F1', '#3EBFCE', '#0A9AAB', '#027B8C'],
-				tsn = '1s ease-out',
 				i;
 			var l = wk.length;
 
 			for(i = l;i--;){
 				bars[i].css({flex: wk[i], background: colors[i]});
 			}
+
 			_t.events[3] = function () {
-				bars.css({transition: '', height: 0});
-				axis.css({transition: '', width: 0});
-				start.css({transition: '', opacity: 0});
+
+				[bars, axis, start, prj].css({transition: ''});
+				bars.css({height: 0});
+				axis.css({width: 0});
+				start.css({opacity: 0});
+				prj.css({transform: '', opacity: 0});
+				// debugger
 				setTimeout(function () {
-					axis.css({transition: tsn, width: '100%'});
-					start.css({transition: tsn, opacity: 1}, 666);
+					axis.css({transition: '1.5s ease-out', width: '100%'});
+					start.css({transition: '3s', opacity: 1}, 200);
 					for(i = 0;i < l;i++){
-						bars[i].css({transition: '.3s' + _t.tsn, height: '100%'}, 300 * i)
+						bars[i].css({transition: '.3s' + _t.tsn, height: '100%'}, 300 * i);
+						prj[i].css({transition: '.3s ease-out', transform: 'rotate(40deg)', opacity: 1}, 300 * i)
 					}
 				},99);
 			}
