@@ -141,18 +141,20 @@ h1{
 	}
 }
 
-
+#pie-con{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	height: 80%;
+	margin: 0 10vw;
+}
 #pie{
-	 width: 50vh;
-	 height: 50vh;
-	 // box-shadow: 0 0 3vh #333;
-	 position: absolute;
-	 border-radius: 50%;
-	 top: 50%;
-	 margin-top: -25vh;
-	 left: 50%;
-	 margin-left: -60vh;
-	 div{
+	flex-shrink: 0;
+	position: relative;
+	width: 40vh;
+	height: 40vh;
+	border-radius: 50%;
+	div{
 		overflow: hidden;
 		width: 100%;
 		height: 100%;
@@ -160,10 +162,26 @@ h1{
 		position: absolute;
 	}
 	>div{
-		clip: rect(0 25vh 50vh 0);
+		clip: rect(0 20vh 40vh 0);
 	}
 	>div>div{
-		clip: rect(0 50vh 50vh 25vh);
+		clip: rect(0 40vh 40vh 20vh);
+	}
+}
+#pie-li{
+	list-style: none;
+	padding: 0;
+	height: 40vh;
+	font-size: 4vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	li>i{
+		display: inline-block;
+		width: 3vh;
+		height: 3vh;
+		margin-right: 2vh;
+		border-radius: 50%;
 	}
 }
 

@@ -118,15 +118,19 @@ h1 {
     #tline .txt:nth-child(odd)::before {
       top: -1px; }
 
+#pie-con {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 80%;
+  margin: 0 10vw; }
+
 #pie {
-  width: 50vh;
-  height: 50vh;
-  position: absolute;
-  border-radius: 50%;
-  top: 50%;
-  margin-top: -25vh;
-  left: 50%;
-  margin-left: -60vh; }
+  flex-shrink: 0;
+  position: relative;
+  width: 40vh;
+  height: 40vh;
+  border-radius: 50%; }
   #pie div {
     overflow: hidden;
     width: 100%;
@@ -134,9 +138,24 @@ h1 {
     border-radius: 50%;
     position: absolute; }
   #pie > div {
-    clip: rect(0 25vh 50vh 0); }
+    clip: rect(0 20vh 40vh 0); }
   #pie > div > div {
-    clip: rect(0 50vh 50vh 25vh); }
+    clip: rect(0 40vh 40vh 20vh); }
+
+#pie-li {
+  list-style: none;
+  padding: 0;
+  height: 40vh;
+  font-size: 4vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around; }
+  #pie-li li > i {
+    display: inline-block;
+    width: 3vh;
+    height: 3vh;
+    margin-right: 2vh;
+    border-radius: 50%; }
 
 #works .bar {
   width: 70%;

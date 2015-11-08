@@ -103,14 +103,16 @@
 		},
 		initPie: function (_t) {
 			var sector = _t.q('#pie>div'),
-				secInner = _t.q('#pie>div>div');
+				secInner = _t.q('#pie>div>div'),
+				list = _t.q('#pie-li>li'),
+				icon = _t.q('#pie-li>li>i');
 			var colors = ['#007ac6', '#328ed5', '#63b9fb', '#88cafc', '#bbdffa'];
-			var deg = [1,2,3,4],sum = 0,i;
+			var deg = [3,3,3,1],sum = 0,i;
 			var l = deg.length;
 
 			for(i = l;i--;){
 				sum += deg[i];
-				sector[i].children[0].css({background: colors[i]});
+				[sector[i].children[0],icon[i]].css({background: colors[i]});
 			}
 			for(i = l;i--;){
 				deg[i] = Math.ceil(deg[i]/sum * 360);
@@ -121,15 +123,18 @@
 					endStyle = {transition: '.7s' + _t.tsn};
 				sector.css(initStyle);
 				secInner.css(initStyle);
+				list.css({transition: '',transform: 'rotateY(90deg)'});
 				setTimeout(function () {
 					sector.css(endStyle);
 					secInner.css(endStyle);
+					list.css(endStyle);
 					for(i = l;i--;){
 						sector[i].children[0].css({transform: 'rotate('+ deg[i] +'deg)'});
 						sector[i].css({transform: 'rotate('+ dv +'deg)'});
 						dv += deg[i];
+						list[i].css({transform: 'rotateX(0)'}, 100 * i)
 					}
-				},9);
+				},99);
 			}
 		},
 		initBar: function (_t) {
@@ -153,7 +158,7 @@
 				axis.css({width: 0});
 				start.css({opacity: 0});
 				prj.css({transform: '', opacity: 0});
-				// debugger
+				
 				setTimeout(function () {
 					axis.css({transition: '1.5s ease-out', width: '100%'});
 					start.css({transition: '3s', opacity: 1}, 200);
