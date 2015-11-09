@@ -122,8 +122,8 @@
 				return function (e) {
 					var target = e.target.tagName =='LI'? e.target : e.target.parentNode;
 					var i = list.indexOf(target),
-						styles = [{top: '-2vh', zIndex: 3},{top: 0, zIndex: 0}];
-					i > -1 && sector[i].css(styles[flag]);
+						styles = ['1.1,1.1','1,1'];
+					i > -1 && sector[i].setTrans('scale', styles[flag]);
 				}
 			}
 			liCon.onmouseover = listOver(0);
@@ -132,7 +132,7 @@
 			_t.events[2] = function () {
 				var dv = 0;
 				var initStyle = {transition: '',transform: ''},
-					endStyle = {transition: ' .2s' + _t.tsn};
+					endStyle = {transition: ' .7s' + _t.tsn};
 				sector.css(initStyle);
 				secInner.css(initStyle);
 				list.css({transition: '',transform: 'rotateY(90deg)'});
@@ -147,6 +147,9 @@
 						list[i].css({transform: 'rotateX(0)'}, 160 * i)
 					}
 				},99);
+				setTimeout(function () {
+					sector.css({transition: '.2s ease-out'});
+				},800);
 			}
 		},
 		initBar: function (_t) {
@@ -205,10 +208,30 @@
 				}
 				return _t;
 			}
-			Object.prototype.append = function (tag, context) {
+			HTMLElement.prototype.append = function (tag, context) {
 				var dom = document.createElement(tag);
 				dom.innerHTML = context;
 				this.appendChild(dom);
+			}
+			HTMLElement.prototype.setTrans = function (prop, val) {
+				var tr = this.style.transform;
+				var idx_st = tr.indexOf(prop),
+					lg = tr.length,
+					lg_p = prop.length;
+				var idx_ed;
+
+				if(idx_st > -1){
+					for(var i = idx_st + lg_p + 3; i < lg; i++){
+						if(tr[i] == ')'){
+							idx_ed = i + 1;
+							break;
+						}
+					}
+					tr = tr.slice(0, idx_st) + tr.slice(idx_ed);
+				}
+
+				var newTrans = ' ' + prop + '(' + val +')';
+				this.style.transform = tr + newTrans;
 			}
 		}
 	}
