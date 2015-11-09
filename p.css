@@ -154,7 +154,8 @@ h1 {
   flex-direction: column;
   justify-content: space-around; }
   #pie-li li {
-    cursor: pointer; }
+    cursor: pointer;
+    flex-grow: 1; }
     #pie-li li > i {
       display: inline-block;
       width: 3vh;

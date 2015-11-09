@@ -181,6 +181,7 @@ h1{
 	justify-content: space-around;
 	li{
 		cursor: pointer;
+		flex-grow: 1;
 		>i{
 			display: inline-block;
 			width: 3vh;
