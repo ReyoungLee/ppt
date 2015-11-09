@@ -105,9 +105,10 @@
 			var sector = _t.q('#pie>div'),
 				secInner = _t.q('#pie>div>div'),
 				list = _t.q('#pie-li>li'),
+				liCon = _t.q('#pie-li')[0],
 				icon = _t.q('#pie-li>li>i');
 			var colors = ['#007ac6', '#328ed5', '#63b9fb', '#88cafc', '#bbdffa'];
-			var deg = [3,3,3,1],sum = 0,i;
+			var deg = [2.7,3,3.2,1.1],sum = 0,i;
 			var l = deg.length;
 
 			for(i = l;i--;){
@@ -117,10 +118,21 @@
 			for(i = l;i--;){
 				deg[i] = Math.ceil(deg[i]/sum * 360);
 			}
+			var listOver = function (flag) {
+				return function (e) {
+					var target = e.target.tagName =='LI'? e.target : e.target.parentNode;
+					var i = list.indexOf(target),
+						styles = [{top: '-2vh', zIndex: 3},{top: 0, zIndex: 0}];
+					i > -1 && sector[i].css(styles[flag]);
+				}
+			}
+			liCon.onmouseover = listOver(0);
+			liCon.onmouseout = listOver(1);
+
 			_t.events[2] = function () {
 				var dv = 0;
 				var initStyle = {transition: '',transform: ''},
-					endStyle = {transition: '.7s' + _t.tsn};
+					endStyle = {transition: ' .2s' + _t.tsn};
 				sector.css(initStyle);
 				secInner.css(initStyle);
 				list.css({transition: '',transform: 'rotateY(90deg)'});
@@ -132,7 +144,7 @@
 						sector[i].children[0].css({transform: 'rotate('+ deg[i] +'deg)'});
 						sector[i].css({transform: 'rotate('+ dv +'deg)'});
 						dv += deg[i];
-						list[i].css({transform: 'rotateX(0)'}, 100 * i)
+						list[i].css({transform: 'rotateX(0)'}, 160 * i)
 					}
 				},99);
 			}
@@ -172,6 +184,7 @@
 		initFuns: function () {
 
 			NodeList.prototype.slice = Array.prototype.slice;
+			NodeList.prototype.indexOf = Array.prototype.indexOf;
 
 			Object.prototype.css = function (obj, delay) {
 				var _t = this.length == undefined ? [this]:this,i,k;
