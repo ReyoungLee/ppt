@@ -156,6 +156,8 @@ h1 {
   #pie-li li {
     cursor: pointer;
     flex-grow: 1; }
+    #pie-li li:hover {
+      font-size: 4.1vh; }
     #pie-li li > i {
       display: inline-block;
       width: 3vh;
@@ -197,5 +199,17 @@ h1 {
   top: 110%;
   left: 5vw;
   transform-origin: 0 0; }
+
+.pc {
+  position: relative; }
+  .pc img {
+    transition: .12s ease-out;
+    max-height: 82vh; }
+  .pc .right {
+    position: absolute;
+    top: 0;
+    right: 0; }
+    .pc .right:nth-child(2):hover + .right, .pc .right:nth-child(3):hover {
+      right: 48.4vh; }
 
 /*# sourceMappingURL=p.css.map */

@@ -64,6 +64,9 @@
 				_t.go(_t.getNav());
 			}
 			setTimeout(go,0);
+			// setTimeout(function () {
+			// 	_t.q('img').css({opacity: 1});
+			// }, 111)
 			document.onkeydown = _t.keyEvent;
 			window.onhashchange = go;
 		},
@@ -122,7 +125,7 @@
 				return function (e) {
 					var target = e.target.tagName =='LI'? e.target : e.target.parentNode;
 					var i = list.indexOf(target),
-						styles = ['1.1,1.1','1,1'];
+						styles = ['1.1','1'];
 					i > -1 && sector[i].setTrans('scale', styles[flag]);
 				}
 			}
@@ -157,8 +160,8 @@
 				prj = _t.q('#works .prj'),
 				axis = _t.q('#works .axis'),
 				start = _t.q('#works .start');
-			var wk = [2,3,2,2,4],
-				colors = ['#AAF6FF', '#65E2F1', '#3EBFCE', '#0A9AAB', '#027B8C'],
+			var wk = [2,3,2,2,4,5],
+				colors = ['#AAF6FF', '#65E2F1', '#3EBFCE', '#0A9AAB', '#027B8C', '#065C69'],
 				i;
 			var l = wk.length;
 
@@ -221,7 +224,7 @@
 				var idx_ed;
 
 				if(idx_st > -1){
-					for(var i = idx_st + lg_p + 3; i < lg; i++){
+					for(var i = idx_st + lg_p + 2; i < lg; i++){
 						if(tr[i] == ')'){
 							idx_ed = i + 1;
 							break;
