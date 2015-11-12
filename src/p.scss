@@ -162,7 +162,7 @@ h1{
 			margin-left: -11px;
 			border: 1px #fff solid;
 			position: absolute;
-			z-index: -1;
+			z-index: -999;
 			left: 50%;
 			transform: rotate(45deg);
 		}
@@ -173,6 +173,7 @@ h1{
 			height: 1px;
 			background: inherit;
 			position: absolute;
+			z-index: 999;
 			left: 50%;
 		}
 		&:nth-child(even){

@@ -137,7 +137,7 @@ h1 {
       margin-left: -11px;
       border: 1px #fff solid;
       position: absolute;
-      z-index: -1;
+      z-index: -999;
       left: 50%;
       transform: rotate(45deg); }
     #tline .txt::before {
@@ -147,6 +147,7 @@ h1 {
       height: 1px;
       background: inherit;
       position: absolute;
+      z-index: 999;
       left: 50%; }
     #tline .txt:nth-child(even) {
       bottom: 0; }
@@ -255,11 +256,13 @@ h1 {
 .pc img {
   position: absolute;
   max-height: 82vh;
-  opacity: 0;
-  transform: 'scale(0.5)'; }
+  opacity: 0; }
+.pc .left {
+  transform: 'translate(20vw) scale(0.5)'; }
 .pc .right {
   top: 0;
-  right: 0; }
+  right: 0;
+  transform: 'translate(-30vw) scale(0.5)'; }
   .pc .right:nth-child(2):hover + .right, .pc .right:nth-child(3):hover {
     right: 48.4vh; }
 
