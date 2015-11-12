@@ -251,19 +251,33 @@ h1 {
   transform-origin: 0 0;
   opacity: 0; }
 
-.pc > div {
+.sc > div {
   position: relative; }
-.pc img {
+.sc img {
   position: absolute;
   max-height: 82vh;
   opacity: 0; }
-.pc .left {
+.sc .left {
   transform: 'translate(20vw) scale(0.5)'; }
-.pc .right {
+.sc .right {
   top: 0;
   right: 0;
-  transform: 'translate(-30vw) scale(0.5)'; }
-  .pc .right:nth-child(2):hover + .right, .pc .right:nth-child(3):hover {
+  transform: 'translate(-30vw) scale(0.3)'; }
+  .sc .right:nth-child(2):hover + .right, .sc .right:nth-child(3):hover {
     right: 48.4vh; }
+
+#mp-lb label {
+  position: absolute;
+  font-size: 1vw;
+  opacity: 0;
+  left: 49vw;
+  top: 49vh; }
+
+#smr {
+  font-size: 12vh;
+  text-align: center;
+  margin-top: 34vh;
+  font-family: microsoft yahei;
+  letter-spacing: 1.6vh; }
 
 /*# sourceMappingURL=p.css.map */
