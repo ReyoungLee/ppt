@@ -161,7 +161,7 @@
 				axis.css({width: 0});
 				start.css({opacity: 0});
 				prj.css({transform: '', opacity: 0});
-				
+
 				setTimeout(function () {
 					axis.css({transition: '1.8s ease-out', width: '100%'});
 					start.css({transition: '3s', opacity: 1}, 200);
