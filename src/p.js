@@ -10,19 +10,26 @@
 		currentPage: 0,
 		events: [],
 		q: function (c) {
+
 			return d.querySelectorAll(c);
 		},
 		_go: function (index) {
+
 			var _t = this;
 			index >= _t.l && (index = _t.l - 1);
 			index < 0 && (index = 0);
 
-			var dn = {transform: 'perspective(999px) rotateX(-90deg) rotateY(62deg)', opacity: 0},
-				up = {transform: 'perspective(999px) rotate(0)', opacity: 1};
-
-			if( index > _t.currentPage){
-				_t.pages.slice(_t.currentPage, index).css(dn);//.css({opacity: 0},300);
-			}else{
+			var dn = {
+					transform: 'perspective(999px) rotateX(-90deg) rotateY(62deg)',
+					opacity: 0
+				},
+				up = {
+					transform: 'perspective(999px) rotate(0)',
+					opacity: 1
+				};
+			if (index > _t.currentPage) {
+				_t.pages.slice(_t.currentPage, index).css(dn); //.css({opacity: 0},300);
+			} else {
 				_t.pages.slice(index, _t.currentPage).css(up);
 			}
 
@@ -31,27 +38,31 @@
 			_t.events[index] && _t.events[index]();
 		},
 		changeHash: function (d) {
+
 			var targetIndex = this.getNav() + d;
-			if(targetIndex >= this.l || targetIndex < 0){
+			if (targetIndex >= this.l || targetIndex < 0) {
 				return;
 			}
 			location.hash = targetIndex;
 		},
 		color:  function (flag) {
+
 			var ret,c = this.color;
 			flag && (ret =  40 + Math.floor(Math.random() * 30 * flag));
-			flag || (ret = 'rgb('+c(1)+','+c(2)+','+c(3)+')');
+			flag || (ret = `rgb(${c(1)},${c(2)},${c(3)})`);
 			return ret;
 		},
 		keyEvent: function (e) {
+
 			e.which == 8 && e.preventDefault();
 			var e = e.which;
 			([8,33,37,38].indexOf(e) > -1) && ppt.changeHash(-1);
 			([32,34,39,40].indexOf(e) > -1) && ppt.changeHash(1);
 		},
 		getNav: function () {
+
 			var i = location.hash.slice(1) * 1;
-			if(typeof i != 'number' || i == NaN){
+			if (typeof i != 'number' || i == NaN) {
 				i = 0;
 				location.hash = 0;
 			}
@@ -59,40 +70,53 @@
 		},
 		initPage: function (_t) {
 
-			_t.q('#page').css({opacity: 1, transition: 'opacity .4s ease-out'},444);
+			_t.q('#page').css({
+				opacity: 1,
+				transition: 'opacity .4s ease-out'
+			}, 444);
+
 			_t.l = _t.pages.length;
+
 			var i;
 
-			for(i = _t.l; i--;){
+			for (i = _t.l; i--;) {
 				_t.pages[i].css({background: _t.color()});
 				_t.pages[i].css({zIndex: _t.l - i});
 				i && _t.pages[i].append('span', i);
 			}
 		},
 		initLine: function (_t) {
-			var spot = _t.q('#tline .spot'),
-				txt = _t.q('#tline .txt'),
-				txte = _t.q('#tline .txt:nth-child(even)'),
-				txto = _t.q('#tline .txt:nth-child(odd)');
+
+			var spot = _t.q('#timeline .spot'),
+				txt = _t.q('#timeline .txt'),
+				txte = _t.q('#timeline .txt:nth-child(even)'),
+				txto = _t.q('#timeline .txt:nth-child(odd)');
 			var l = spot.length,i;
 			var dv = ['15', '40', '60', '75'];
 			var bg = _t.pages[1].style.background;
 
-			_t.events[1] = function () {
+			_t.events[1] = function() {
+
 				[spot, txt].css(_t.ts).css({left: 0});
 				txte.css({bottom: 0});
 				txto.css({top: 0});
-				setTimeout(function () {
+
+				setTimeout(function() {
+
 					[spot, txt].css({transition: '.7s' + _t.tsn});
 					txte.css({bottom: '4vh'});
 					txto.css({top: '20vh'});
-					for(i = l;i--;){
-						[spot[i], txt[i]].css({left: dv[i] + '%'});
+
+					for (i = l; i--;) {
+						[spot[i], txt[i]].css({
+							left: dv[i] + '%'
+						});
 					}
-				},99);
+				}, 99);
 			}
 		},
 		initPie: function (_t) {
+
 			var sector = _t.q('#pie>div'),
 				secInner = _t.q('#pie>div>div'),
 				list = _t.q('#pie-li>li'),
@@ -102,16 +126,18 @@
 			var deg = [2.7,3,3.2,1.1],sum = 0,i;
 			var l = deg.length;
 
-			for(i = l;i--;){
+			for (i = l; i--;) {
 				sum += deg[i];
-				[sector[i].children[0],icon[i]].css({background: colors[i]});
+				[sector[i].children[0], icon[i]].css({background: colors[i]});
 			}
-			for(i = l;i--;){
-				deg[i] = Math.ceil(deg[i]/sum * 360);
+			for (i = l; i--;) {
+				deg[i] = Math.ceil(deg[i] / sum * 360);
 			}
 			var listOver = function (flag) {
+
 				return function (e) {
-					var target = e.target.tagName =='LI'? e.target : e.target.parentNode;
+
+					var target = e.target.tagName == 'LI' ? e.target : e.target.parentNode;
 					var i = list.indexOf(target),
 						styles = ['1.1','1'];
 					i > -1 && sector[i].setTrans('scale', styles[flag]);
@@ -121,27 +147,39 @@
 			liCon.onmouseout = listOver(1);
 
 			_t.events[2] = function () {
+
 				var dv = 0;
-				var initStyle = {transition: '',transform: ''},
-					endStyle = {transition: ' .7s' + _t.tsn};
+				var initStyle = {
+						transition: '',
+						transform: ''
+					},
+					endStyle = {
+						transition: ' .7s' + _t.tsn
+					};
 				sector.css(initStyle);
 				secInner.css(initStyle);
-				list.css({transition: '',transform: 'rotateY(90deg)'});
+				list.css({
+					transition: '',
+					transform: 'rotateY(90deg)'
+				});
+
 				setTimeout(function () {
+
 					sector.css(endStyle);
 					secInner.css(endStyle);
 					list.css(endStyle);
-					for(i = l;i--;){
-						sector[i].children[0].css({transform: 'rotate('+ deg[i] +'deg)'});
-						sector[i].css({transform: 'rotate('+ dv +'deg)'});
+					for (i = l; i--;) {
+						sector[i].children[0].css({transform: `rotate(${deg[i]}deg)`});
+						sector[i].css({transform: `rotate(${dv}deg)`});
 						dv += deg[i];
 						list[i].css({transform: 'rotateX(0)'}, 160 * i)
 					}
-				},99);
+				}, 99);
 				sector.css({transition: '.2s ease-out'}, 800);
 			}
 		},
 		initBar: function (_t) {
+
 			var bars = _t.q('.bar .part'),
 				prj = _t.q('#works .prj'),
 				axis = _t.q('#works .axis'),
@@ -151,34 +189,62 @@
 				i;
 			var l = wk.length;
 
-			for(i = l;i--;){
-				bars[i].css({flex: wk[i], background: colors[i]});
+			for (i = l; i--;) {
+				bars[i].css({
+					flex: wk[i],
+					background: colors[i]
+				});
 			}
 
 			_t.events[3] = function () {
+
 				[bars, axis, start, prj].css(_t.ts);
 				bars.css({height: 0});
 				axis.css({width: 0});
 				start.css({opacity: 0});
-				prj.css({transform: '', opacity: 0});
+				prj.css({
+					transform: '',
+					opacity: 0
+				});
 
 				setTimeout(function () {
-					axis.css({transition: '1.8s ease-out', width: '100%'});
-					start.css({transition: '3s', opacity: 1}, 200);
-					for(i = 0;i < l;i++){
-						bars[i].css({transition: '.3s' + _t.tsn, height: '100%'}, 300 * i);
-						prj[i].css({transition: '.3s ease-out', transform: 'rotate(40deg)', opacity: 1}, 300 * i);
+
+					axis.css({
+						transition: '1.8s ease-out',
+						width: '100%'
+					});
+					start.css({
+						transition: '3s',
+						opacity: 1
+					}, 200);
+
+					for (i = 0; i < l; i++) {
+
+						bars[i].css({
+							transition: '.3s' + _t.tsn,
+							height: '100%'
+						}, 300 * i);
+
+						prj[i].css({
+							transition: '.3s ease-out',
+							transform: 'rotate(40deg)',
+							opacity: 1
+						}, 300 * i);
 					}
-				},99);
+				}, 99);
 			}
 		},
 		initSC: function (_t) {
+
 			var imgs = _t.q('.sc img'),
 				imgc = _t.q('.sc');
-			for(var i = imgc.length;i--;){
+
+			for (var i = imgc.length; i--;) {
 				(function () {
+
 					var idx = _t.pages.indexOf(imgc[i]);
 					_t.events[idx] = function () {
+
 						var picL = _t.pages[idx].querySelectorAll('.left'),
 							picR = _t.pages[idx].querySelectorAll('.right'),
 							pic = _t.pages[idx].querySelectorAll('img');
@@ -188,34 +254,60 @@
 						picR.css({transform: 'translate(-30vw) scale(0.4)'});
 
 						setTimeout(function () {
-							pic.css({transition: '.3s ease-out', opacity: 1}).css({transition: '.12s ease-out'},333);
+
+							pic.css({
+								transition: '.3s ease-out',
+								opacity: 1
+							}).css({
+								transition: '.12s ease-out'
+							}, 333);
 							picL.css(_t.tf);
 							picR.css(_t.tf);
-						},199);
+						}, 199);
 					}
 				})();
 			}
 		},
 		initLabels: function (_t) {
+
 			var idx = _t.pages.indexOf(_t.q('#mp-lb')[0]),
 				lbs = _t.q('#mp-lb label');
 			var tsl = ['-30vw,-20vh', '10vw,-30vh', '15vw,-4vh', '0,30vh', '-35vw,20vh'],
 				fts = ['6','4.8','4','4.3','4.8'];
+
 			_t.events[idx] = function () {
-				lbs.css(_t.ts).css({transform: '', fontSize: '1vw', opacity: 0});
+
+				lbs.css(_t.ts).css({
+					transform: '',
+					fontSize: '1vw',
+					opacity: 0
+				});
 				setTimeout(function () {
-					lbs.css({transition: '.7s' + _t.tsn, opacity: 1});
-					for(var i = lbs.length;i --;){
-						lbs[i].css({transform: 'translate(' + tsl[i] + ')', fontSize: fts[i] + 'vw'});
+
+					lbs.css({
+						transition: '.7s' + _t.tsn,
+						opacity: 1
+					});
+					for (var i = lbs.length; i--;) {
+						lbs[i].css({
+							transform: `translate(${tsl[i]})`,
+							fontSize: fts[i] + 'vw'
+						});
 					}
-				},199);
+				}, 199);
 			}
 		},
 		initSmr: function (_t) {
+
 			var smr = _t.q('#smr');
 			_t.events[_t.pages.length - 1] = function () {
+
 				smr.css(_t.ts).css(_t.tf).css({opacity: 0});
-				smr.css({transition: '.5s' + _t.tsn, transform: 'rotate(90deg)', opacity: 1},299);
+				smr.css({
+					transition: '.5s' + _t.tsn,
+					transform: 'rotate(90deg)',
+					opacity: 1
+				}, 299);
 			}
 		},
 		initFuns: function () {
@@ -224,39 +316,44 @@
 			NodeList.prototype.indexOf = Array.prototype.indexOf;
 
 			Object.prototype.css = function (obj, delay) {
-				var _t = this.length == undefined ? [this]:this,i,k;
-				if(delay > 0){
-					setTimeout(function () {
+
+				var _t = this.length == undefined ? [this] : this,
+					i, k;
+				if (delay > 0) {
+					setTimeout(function() {
 						_t.css(obj);
 					}, delay);
 					return;
 				}
-				for(i = _t.length;i--;){
-					if(_t[i].length != undefined){
+				for (i = _t.length; i--;) {
+					if (_t[i].length != undefined) {
 						_t[i].css(obj);
-					}else{
-						for(k in obj){
+					} else {
+						for (k in obj) {
 							_t[i].style[k] = obj[k];
 						}
 					}
 				}
 				return _t;
 			}
+
 			HTMLElement.prototype.append = function (tag, context) {
+
 				var dom = document.createElement(tag);
 				dom.innerHTML = context;
 				this.appendChild(dom);
 			}
 			HTMLElement.prototype.setTrans = function (prop, val) {
+
 				var tr = this.style.transform;
 				var idx_st = tr.indexOf(prop),
 					lg = tr.length,
 					lg_p = prop.length;
 				var idx_ed;
 
-				if(idx_st > -1){
-					for(var i = idx_st + lg_p + 2; i < lg; i++){
-						if(tr[i] == ')'){
+				if (idx_st > -1) {
+					for (var i = idx_st + lg_p + 2; i < lg; i++) {
+						if (tr[i] == ')') {
 							idx_ed = i + 1;
 							break;
 						}
@@ -264,7 +361,7 @@
 					tr = tr.slice(0, idx_st) + tr.slice(idx_ed);
 				}
 
-				var newTrans = ' ' + prop + '(' + val +')';
+				var newTrans = ` ${prop}(${val})`;
 				this.style.transform = tr + newTrans;
 			}
 		},
