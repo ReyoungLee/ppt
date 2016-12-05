@@ -184,7 +184,7 @@
 				prj = _t.q('#works .prj'),
 				axis = _t.q('#works .axis'),
 				start = _t.q('#works .start');
-			var wk = [2,3,2,2,3.2,5],
+			var wk = [2,3,2,2,3.2,3],
 				colors = ['#AAF6FF', '#65E2F1', '#3EBFCE', '#0A9AAB', '#027B8C', '#065C69'],
 				i;
 			var l = wk.length;
